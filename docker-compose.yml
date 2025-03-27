@@ -1,0 +1,30 @@
+services:
+  gmxvg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    image: lozalp/gmxvg
+    container_name: gmxvg-container
+    tty: true
+    stdin_open: true
+    command: ["/usr/local/bin/startup.sh"]
+    volumes:
+      - ./data:/data  # Mount local ./data directory to container's /data directory
+    environment:
+      # Gromacs environment variables (see https://hub.docker.com/r/gromacs/gromacs for details)
+      - GMX_MAXBACKUP=-1                              # Maximum number of backup files (-1 = unlimited)
+      - GMX_GPU_ID=                                   # GPU ID to use (empty = all available)
+      - GMX_NSTLIST=                                  # Frequency of neighbor list updates (empty = auto)
+      - GMX_USE_OPENCL=auto                           # Use OpenCL for GPU acceleration
+      - GMX_DISABLE_CUDA_GPU_DETECTION=no             # Disable CUDA GPU detection
+      - GMX_OPENCL_VENDOR_LIBS=                       # OpenCL vendor libraries (empty = all available)
+      - GMX_OPENCL_DEVICE_VENDOR=                     # OpenCL device vendor (empty = all available)
+      - GMX_OPENCL_DEVICE_INDEX=                      # OpenCL device index (empty = all available)
+      - GMX_OPENCL_DISABLE_COMPATIBILITY_CHECK=no     # Disable OpenCL compatibility check
+      - GMX_DISABLE_HARDWARE_DETECTION=no             # Disable hardware detection
+      - GMX_DISABLE_SIMD_KERNELS=no                   # Disable SIMD kernels
+      - GMX_DISABLE_CUDA_TIMING=no                    # Disable CUDA timing
+      - GMX_DISABLE_GPU_DETECTION=no                  # Disable GPU detection
+      - GMX_DISABLE_GPU_TIMING=no                     # Disable GPU timing
