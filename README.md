@@ -30,14 +30,14 @@ This will:
 
 Alternatively, you can use Docker Compose to run the container:
 
-1. Make sure you have Docker Compose installed
+1. Make sure you have Docker Compose installed (included with Docker Desktop or can be installed separately)
 2. Create a directory for your data:
    ```bash
    mkdir -p data
    ```
 3. Start the container using Docker Compose:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 This will:
@@ -48,8 +48,29 @@ This will:
 
 To stop the container:
 ```bash
-docker-compose down
+docker compose down
 ```
+
+## Accessing the Container Terminal
+
+### When Using Docker Run
+
+When you run the container using `docker run -it` as shown above, you'll immediately get access to the container's terminal. The `-it` flags ensure that the container is interactive and has a TTY (terminal) attached.
+
+### When Using Docker Compose
+
+If you started the container in detached mode using Docker Compose (`docker compose up -d`), you can access the terminal with the following command:
+
+```bash
+docker exec -it gmxvg-container bash
+```
+
+This will:
+- Connect to the running container named `gmxvg-container`
+- Open an interactive bash shell (`-it` flags)
+- Allow you to run commands inside the container
+
+To exit the container terminal without stopping the container, simply type `exit` or press `Ctrl+D`.
 
 ### Gromacs Environment Variables
 
